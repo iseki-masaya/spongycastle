@@ -49,7 +49,7 @@ public class PGPPublicKeyRing
     /**
      * @param pubKeys
      */
-    public PGPPublicKeyRing(
+    PGPPublicKeyRing(
         List pubKeys)
     {
         this.keys = pubKeys;

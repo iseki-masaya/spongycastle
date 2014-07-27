@@ -19,6 +19,7 @@ import org.spongycastle.bcpg.DSAPublicBCPGKey;
 import org.spongycastle.bcpg.ElGamalPublicBCPGKey;
 import org.spongycastle.bcpg.PublicKeyAlgorithmTags;
 import org.spongycastle.bcpg.PublicKeyPacket;
+import org.spongycastle.bcpg.PublicSubkeyPacket;
 import org.spongycastle.bcpg.RSAPublicBCPGKey;
 import org.spongycastle.bcpg.TrustPacket;
 import org.spongycastle.bcpg.UserAttributePacket;
@@ -903,6 +904,10 @@ public class PGPPublicKey
         }
 
         PGPPublicKey    returnKey = new PGPPublicKey(key);
+
+        // change the packet type from key to subkey
+        returnKey.publicPk = new PublicSubkeyPacket(
+                returnKey.publicPk.getAlgorithm(), returnKey.publicPk.getTime(), returnKey.publicPk.getKey());
 
         returnKey.subSigs = new ArrayList();
         returnKey.subSigs.add(certification);
