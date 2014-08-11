@@ -15,6 +15,8 @@ public class PGPLiteralData
     public static final char    BINARY = 'b';
     public static final char    TEXT = 't';
     public static final char    UTF8 = 'u';
+    // http://tools.ietf.org/html/draft-moscaritolo-openpgp-literal-01
+    public static final char    MIME_TYPE = 'm';
 
     /**
      * The special name indicating a "for your eyes only" packet.
@@ -54,6 +56,11 @@ public class PGPLiteralData
     public String getFileName()
     {
         return data.getFileName();
+    }
+
+    public String getMimeType()
+    {
+        return data.getMimeType();
     }
 
     /**

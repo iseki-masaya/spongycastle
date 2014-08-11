@@ -16,6 +16,7 @@ public class PGPLiteralDataGenerator implements StreamGenerator
     public static final char    BINARY = PGPLiteralData.BINARY;
     public static final char    TEXT = PGPLiteralData.TEXT;
     public static final char    UTF8 = PGPLiteralData.UTF8;
+    public static final char    MIME_TYPE = PGPLiteralData.MIME_TYPE;
     
     /**
      * The special name indicating a "for your eyes only" packet.

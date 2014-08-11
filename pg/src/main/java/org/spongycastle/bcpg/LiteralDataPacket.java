@@ -2,6 +2,7 @@ package org.spongycastle.bcpg;
 
 import java.io.IOException;
 
+import org.spongycastle.util.Arrays;
 import org.spongycastle.util.Strings;
 
 /**
@@ -70,5 +71,11 @@ public class LiteralDataPacket
         }
 
         return tmp;
+    }
+
+    public String getMimeType()
+    {
+        byte[] mimeType = Arrays.copyOfRange(fileName, getFileName().length() + 1, fileName.length);
+        return Strings.fromUTF8ByteArray(mimeType);
     }
 }

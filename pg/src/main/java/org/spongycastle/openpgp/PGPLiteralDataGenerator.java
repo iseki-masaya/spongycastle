@@ -7,6 +7,7 @@ import java.util.Date;
 
 import org.spongycastle.bcpg.BCPGOutputStream;
 import org.spongycastle.bcpg.PacketTags;
+import org.spongycastle.util.Arrays;
 import org.spongycastle.util.Strings;
 
 /**
@@ -145,6 +146,32 @@ public class PGPLiteralDataGenerator implements StreamGenerator
         byte[] encName = Strings.toUTF8ByteArray(name);
 
         writeHeader(pkOut, format, encName, modificationTime.getTime());
+
+        return new WrappedGeneratorStream(pkOut, this);
+    }
+
+    public OutputStream open(
+            OutputStream    out,
+            char            format,
+            String          name,
+            String          mimeType,
+            Date            modificationTime,
+            byte[]          buffer)
+            throws IOException
+    {
+        if (pkOut != null)
+        {
+            throw new IllegalStateException("generator already in open state");
+        }
+
+        pkOut = new BCPGOutputStream(out, PacketTags.LITERAL_DATA, buffer);
+
+        byte[] encName = Strings.toUTF8ByteArray(name);
+//        char nChar = '\0';
+        byte[] encMimeType = Strings.toUTF8ByteArray(mimeType);
+        byte[] enc = Arrays.concatenate(encName, encMimeType);
+
+        writeHeader(pkOut, format, enc, modificationTime.getTime());
 
         return new WrappedGeneratorStream(pkOut, this);
     }
